@@ -1,0 +1,25 @@
+<div class="rating-container">
+  <div class="rating-container-left">
+    <div class="rating-star-container rating-full-width">
+      <button
+        mat-icon-button
+        *ngFor="let ratingId of ratingArr; index as i"
+        (click)="onClick(i + 1)"
+      >
+        <app-icon-star-selected
+          *ngIf="rating >= i + 1; else iconStar"
+        ></app-icon-star-selected>
+        <ng-template #iconStar>
+          <app-icon-star></app-icon-star>
+        </ng-template>
+      </button>
+    </div>
+    <button mat-flat-button class="rating-full-width">Avaliar</button>
+  </div>
+  <div>
+    <mat-form-field class="rating-full-width">
+      <mat-label>Inserir comentário:</mat-label>
+      <textarea matInput rows="3"></textarea>
+    </mat-form-field>
+  </div>
+</div>

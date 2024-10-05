@@ -1,0 +1,96 @@
+<div class="container">
+  <div>
+    <div id="info-div" *ngIf="isSuccess">
+      <div class="alert alert-success d-flex align-items-center justify-content-between mb-15" role="alert">
+        <div class="flex-fill mr-10">
+          <p class="mb-0" id="info-message">{{message1}}</p>
+        </div>
+      </div>
+    </div>
+    <div id="alert-div" *ngIf="isAlert">
+      <div class="alert alert-warning d-flex align-items-center justify-content-between mb-15" role="alert">
+        <div class="flex-fill mr-10">
+          <p class="mb-0" id="alert-message">{{alert1}}</p>
+        </div>
+      </div>
+    </div>
+    <div id="error-div" *ngIf="isError">
+      <div class="alert alert-danger d-flex align-items-center justify-content-between mb-15" role="alert">
+        <div class="flex-fill mr-10" id="error-message">
+          <p class="mb-0">An unexpected error has occurred. Please contact your system administrator</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--district-->
+<div class="inserirDistrict" *ngIf="!editingMode">
+  <h1>Adicionar destrito plataforma</h1>
+  <mat-form-field class="districtName">
+    <mat-label>Nome do Distrito:</mat-label>
+    <input matInput [(ngModel)]="districtName">
+  </mat-form-field>
+  <button (click)="adminAddDistrict()">Adicionar Distrito</button>
+</div>
+<div class="inserirDistrict" *ngIf="editingMode">
+  <h1>Edite o distrito selecionado</h1>
+  <mat-form-field class="districtName">
+    <mat-label>Nome do Serviço:</mat-label>
+    <input matInput [(ngModel)]="districtName">
+  </mat-form-field>
+  <button (click)="updateDistrict()">Alterar distrito</button>
+  <button style="margin-left: 20px;" (click)="cancelEdit()">Cancelar</button>
+</div>
+
+<div class="containerListDistrict">
+  <h1>Os meus Distritos</h1>
+  <div class="listDistricts">
+    <div *ngFor="let district of districts; let i = index" class="schedule-item" [class.gray-bg]="i % 2 !== 0"
+      [class.editing]="editingIndex === i">
+      <div class="districting">
+        <p><strong>distrito:</strong> {{district.viewValue}}</p>
+      </div>
+      <div class="schedulingButtons">
+        <button (click)="editDistrict(district,i)">editar</button>
+        <button (click)="exibirMensagem(district)">Apagar</button>
+      </div>
+    </div>
+  </div>
+  <!--upadate distritos-->
+
+  <!--concelhos
+  <div class="agendar-container" [formGroup]="formGroup">
+  <div class="insertCounty">
+      <mat-form-field class="example-full-width">
+        <mat-label>Selecione o Distrito</mat-label>
+        <mat-select [(ngModel)]="districtName1" formControlName="district">
+          <mat-option *ngFor="let district of districts" [value]="district.value">
+            {{ district.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Nome do county</mat-label>
+        <input matInput [(ngModel)]="countyName" formControlName="county" placeholder="Digite o concelho" >
+      </mat-form-field>
+      <button *ngIf="!editingMode1"  (click) = "adminAddCounty()">adicionar County</button>
+      <button *ngIf="editingMode1" (click)="adminUpdateCounty()">Guardar county</button>
+   </div>
+  </div>
+</div>
+<div class="containerListCountys" >
+  <h1>concelhos de {{districtName1}}</h1>
+    <div class="listCountys">
+      <div *ngFor="let county of countys; let i = index" class="schedule-item" [class.gray-bg]="i % 2 !== 0"
+    [class.editing]="editingIndex === i">
+    <div class="counting">
+      <p><strong>concelho:</strong> {{county.viewValue}}</p>
+    </div>
+    <div class="schedulingButtons">
+     <button (click)="editCounty(county,i)">editar</button>
+      <button (click)="adminDeletCounty(county)">Apagar</button>
+    </div>
+  </div>
+</div>
+      -->

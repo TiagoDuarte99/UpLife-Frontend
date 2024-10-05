@@ -1,0 +1,14 @@
+<div class="button-container">
+  <button (click)="showComponent('horario')">Horario</button>
+  <button (click)="showComponent('tipoServicos')">Tipo Serviços</button>
+  <button (click)="showComponent('concelhos')">Concelhos</button>
+  <button (click)="showComponent('agendamentos')">Agendamentos</button>
+</div>
+
+<div class="component-container">
+  <app-horario-freelancer *ngIf="selectedComponent === 'horario'"></app-horario-freelancer>
+  <app-services-freelancer *ngIf="selectedComponent === 'tipoServicos'"></app-services-freelancer>
+  <app-concelhos-freelancer *ngIf="selectedComponent === 'concelhos'"></app-concelhos-freelancer>
+  <app-listaragendamentos *ngIf="selectedComponent === 'agendamentos'"></app-listaragendamentos>
+
+</div>

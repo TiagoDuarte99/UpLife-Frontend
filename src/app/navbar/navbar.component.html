@@ -1,0 +1,89 @@
+<!-- navbar.component.html -->
+
+<div
+  class="navbar-container"
+  *ngIf="
+    !routeService.currentRoute.includes('/freelancer') &&
+    !routeService.currentRoute.includes('/client')
+  "
+>
+  <div class="left-section">
+    <img
+      alt="Logo"
+      class="logo"
+      src="assets/logotipoFinal2.png"
+      (click)="homePage()"
+    />
+  </div>
+  <div class="right-section">
+    <button mat-flat-button (click)="signIn()">
+      <app-icon-user-profile></app-icon-user-profile>
+      Entrar
+    </button>
+    <button mat-flat-button (click)="signUp()">
+      <app-icon-user-profile-plus></app-icon-user-profile-plus>
+      Registar
+    </button>
+  </div>
+</div>
+
+<div
+  class="navbar-container"
+  *ngIf="routeService.currentRoute.includes('/freelancer')"
+>
+  <div class="left-section">
+    <img
+      alt="Logo"
+      class="logo"
+      src="assets/logotipoFinal2.png"
+      (click)="hpFreelancer()"
+    />
+  </div>
+  <div class="right-section">
+    <button mat-flat-button [routerLink]="['/freelancerPerfil']">{{ userDetails.firstName }} {{ userDetails.lastName }}</button>
+    <img [src]="userDetails.photo || '../../assets/perfil1.png'" alt="imageProfile" class="imageProfile" />
+    <button mat-flat-button (click)="logout()">Terminar Sessão</button>
+  </div>
+</div>
+
+<div
+  class="navbar-container"
+  *ngIf="routeService.currentRoute.includes('/client')"
+>
+  <div class="left-section">
+    <img
+      alt="Logo"
+      class="logo"
+      src="assets/logotipoFinal2.png"
+      (click)="hpClient()"
+    />
+  </div>
+  <div class="right-section">
+    <button mat-flat-button routerLink="clientAgendar">
+      <app-icon-calendar></app-icon-calendar>
+      Agendar
+    </button>
+    <button mat-flat-button [routerLink]="['/clientPerfil']">{{ userDetails.firstName }} {{ userDetails.lastName }}</button>
+    <img [src]="userDetails.photo || '../../assets/perfil1.png'" alt="imageProfile" class="imageProfile" />
+    <button mat-flat-button (click)="logout()">Terminar Sessão</button>
+  </div>
+</div>
+
+<div
+  class="navbar-container"
+  *ngIf="routeService.currentRoute.includes('/admin')"
+>
+  <div class="left-section">
+    <img
+      alt="Logo"
+      class="logoAdmin"
+      src="assets/logotipoFinal2.png"
+    />
+  </div>
+  <div class="right-section">
+
+    <button mat-flat-button>{{ userDetails.email }} </button>
+    <img [src]="'../../assets/perfil1.png'" alt="imageProfile" class="imageProfile" />
+    <button mat-flat-button (click)="logout()">Terminar Sessão</button>
+  </div>
+</div>

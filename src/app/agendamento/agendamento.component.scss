@@ -1,0 +1,45 @@
+.agendamento-container {
+  min-height: calc(100vh - 120px);
+  padding: 86px 200px;
+  background-color: #58d3ff;
+}
+.agendamento-cliente-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: solid 1px black;
+  padding: 1rem;
+}
+.agendamento-servico-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-right: solid 1px black;
+  border-bottom: solid 1px black;
+  border-left: solid 1px black;
+  padding: 1rem;
+}
+.agendamento-freelancer-info {
+  border-right: solid 1px black;
+  border-bottom: solid 1px black;
+  border-left: solid 1px black;
+  padding: 1rem;
+}
+strong {
+  margin-right: 0.5rem;
+}
+
+button {
+  flex: 0 0 auto;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #0b0d4d;
+  color: #ffffff;
+  border: none;
+  height: fit-content;
+  cursor: pointer;
+}
+
+.bottonSchedulings{
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}

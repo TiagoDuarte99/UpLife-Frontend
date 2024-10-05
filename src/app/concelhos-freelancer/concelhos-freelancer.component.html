@@ -1,0 +1,67 @@
+<div class="container">
+  <div>
+    <div id="info-div" *ngIf="isSuccess">
+      <div class="alert alert-success d-flex align-items-center justify-content-between mb-15" role="alert">
+        <div class="flex-fill mr-10">
+          <p class="mb-0" id="info-message">{{message1}}</p>
+        </div>
+      </div>
+    </div>
+    <div id="alert-div" *ngIf="isAlert">
+      <div class="alert alert-warning d-flex align-items-center justify-content-between mb-15" role="alert">
+        <div class="flex-fill mr-10">
+          <p class="mb-0" id="alert-message">{{alert1}}</p>
+        </div>
+      </div>
+    </div>
+    <div id="error-div" *ngIf="isError">
+      <div class="alert alert-danger d-flex align-items-center justify-content-between mb-15" role="alert">
+        <div class="flex-fill mr-10" id="error-message">
+          <p class="mb-0">Aconteceu um erro inesperado. Por favor, entre em contato com o seu administrador do sistema.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="agendar-container" [formGroup]="formGroup">
+  <div class="agendar-content">
+    <div>
+      <mat-form-field class="example-full-width">
+        <mat-label>Selecione o Distrito</mat-label>
+        <mat-select [(ngModel)]="selectdistrict" formControlName="district">
+          <mat-option *ngFor="let district of districts" [value]="district.value">
+            {{ district.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Selecione o Concelho</mat-label>
+        <mat-select [(ngModel)]="selectcounty" formControlName="county">
+          <mat-option *ngFor="let county of countys" [value]="county.value">
+            {{ county.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button *ngIf="!editingMode" (click)="addFreelancerCounty()">Adicionar county</button>
+      <button *ngIf="editingMode" (click)="updateFreelancercounty()">Guardar county</button>
+    </div>
+    <div class="containerListContys">
+      <thead>
+        <tr>
+          <th style="width: 20%;">District</th>
+          <th style="width: 20%;">Country</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody style="width: 100px">
+        <tr *ngFor="let county of FreeCountys, let i = index">
+          <td style="width: 20%;">{{county.districtName}}</td>
+          <td style="width: 100px">{{county.countyName}}</td>
+          <td><button (click)="editCounty(county,i )">Alterar county</button></td>
+          <td><button (click)="deleteCounty(county)">Delete county</button></td>
+        </tr>
+      </tbody>
+    </div>
+  </div>

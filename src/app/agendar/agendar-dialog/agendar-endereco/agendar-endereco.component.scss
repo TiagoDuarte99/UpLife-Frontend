@@ -1,0 +1,17 @@
+.agendar-endereco-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.agendar-endereco-content-right {
+  text-align: center;
+  img {
+    margin-bottom: 4rem;
+  }
+}
+.agendar-endereco-actions {
+  display: flex;
+  justify-content: center;
+}
+.example-full-width {
+  width: 100%;
+}

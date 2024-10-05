@@ -1,0 +1,78 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #0b0d4d;
+}
+
+.tipoConta {
+  text-align: center;
+}
+mat-card{
+  background-color: #007acc;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 400px;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+img{
+  width: 100px;
+  height: 100px;
+  margin-left: 20px;
+}
+
+h1,h2,h3{
+  color: white;
+}
+
+h2{
+  margin-left: 20px;
+  margin-bottom: 0px;
+}
+
+
+mat-icon{
+ margin-left: auto;
+}
+
+.login-section {
+  margin-left: 50px;
+  text-align: center;
+  padding: 20px;
+}
+
+@media (min-width: 950px) {
+  .container {
+    flex-direction: row;
+  }
+
+  .login-container {
+    order: 1; 
+    margin-left: 20px; 
+  }
+}
+
+button {
+  background-color: #007acc;
+  color: white !important;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+
+.iniciar-sessao {
+  flex: 1;
+  text-align: center;
+}
+
+

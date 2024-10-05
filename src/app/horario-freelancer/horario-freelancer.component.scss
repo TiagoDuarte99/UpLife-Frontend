@@ -1,0 +1,103 @@
+.container {
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.mat-form-field, .mat-select {
+  flex: 1;
+  max-width: calc(33.33% - 20px);
+}
+
+@media (max-width: 768px) {
+  .mat-form-field, .mat-select {
+    max-width: calc(50% - 20px);
+  }
+}
+
+@media (max-width: 480px) {
+  .mat-form-field, .mat-select {
+    max-width: 100%;
+  }
+}
+
+
+input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 150px; /* ajuste conforme necessário */
+}
+
+button {
+  flex: 0 0 auto;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #0B0D4D; 
+  color: #ffffff;
+  border: none;
+  height: fit-content;
+  cursor: pointer;
+}
+
+.containerListScheduling{
+margin-top: 40px;
+margin-bottom: 60px;
+}
+
+.mat-right{
+  margin-left: 20px;
+}
+
+.schedule-item.gray-bg {
+  background-color: #D9D9D9; /* Fundo cinza para itens alternados */
+}
+
+.schedule-item {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  position: relative;
+  background-color: #FFF;
+  transition: background-color 0.3s ease-in-out;
+  border: 2px solid #0b0d4d;
+  border-radius: 10px;
+}
+.listScheduling {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 20px;
+  margin-bottom: 60px;
+}
+
+.schedule-item {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  background-color: #FFF;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.schedule-item.gray-bg {
+  background-color: #D9D9D9; 
+}
+
+
+.schedulingButtons {
+  display: flex;
+  justify-content: center; /* Centraliza os botões horizontalmente */
+  margin-top: 10px;
+}
+
+.schedulingButtons button {
+  margin-right: 20px; /* Adiciona espaçamento de 20px entre os botões */
+}
+
+.schedule-item.editing {
+  background-color: #58D3FF;
+  color: white;
+}
+
+

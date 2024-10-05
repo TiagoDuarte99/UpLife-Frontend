@@ -1,0 +1,81 @@
+<div class="container-pai">
+
+  <div class="login-section">
+    <h1>Iniciar Sessão</h1>
+    <h3>Se já possui uma conta, inicie sessão aqui.</h3>
+    <button mat-button routerLink="/login">Ir para Login</button>
+  </div>
+  <div>
+    <mat-card class="register-container">
+      <h1>Criar Conta</h1>
+      <div id="info-div" *ngIf="isSuccess">
+        <div class="alert alert-success d-flex align-items-center justify-content-between mb-15" role="alert">
+          <div class="flex-fill mr-10">
+            <p class="mb-0" id="info-message">{{message1}}</p>
+          </div>
+        </div>
+      </div>
+      <div id="alert-div" *ngIf="isAlert">
+        <div class="alert alert-warning d-flex align-items-center justify-content-between mb-15" role="alert">
+          <div class="flex-fill mr-10">
+            <p class="mb-0" id="alert-message">{{alert1}}</p>
+          </div>
+        </div>
+      </div>
+      <div id="error-div" *ngIf="isError">
+        <div class="alert alert-danger d-flex align-items-center justify-content-between mb-15" role="alert">
+          <div class="flex-fill mr-10" id="error-message">
+            <p class="mb-0">Aconteceu um erro inesperado. Por favor, entre em contato com o seu administrador do sistema.</p>
+          </div>
+        </div>
+      </div>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <mat-form-field class="form-group">
+          <mat-label for="firstName">Primeiro Nome:</mat-label>
+          <input matInput type="text" id="firstName" name="firstName" formControlName="firstName">
+        </mat-form-field>
+        <br>
+        <mat-form-field class="form-group">
+          <mat-label for="lastName">Último Nome:</mat-label>
+          <input matInput type="text" id="lastName" name="lastName" formControlName="lastName">
+        </mat-form-field>
+        <br>
+        <mat-form-field class="form-group">
+          <mat-label for="birthdate">Data de Nascimento:</mat-label>
+          <input matInput [matDatepicker]="picker" id="birthdate" name="birthdate" formControlName="birthdate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker startView="multi-year"></mat-datepicker>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="form-group">
+          <mat-label for="email">Email:</mat-label>
+          <input matInput type="email" id="email" name="email" formControlName="email">
+        </mat-form-field>
+        <br>
+        <mat-form-field class="form-group">
+          <mat-label for="password">Senha:</mat-label>
+          <input matInput type="{{ hidePassword ? 'password' : 'text' }}" id="password" name="password" formControlName="password">
+          <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+        </mat-form-field>
+        
+        <br>
+        
+        <mat-form-field class="form-group">
+          <mat-label for="confirmPassword">Confirmar Senha:</mat-label>
+          <input matInput type="{{ hideConfirmPassword ? 'password' : 'text' }}" id="confirmPassword" name="confirmPassword" formControlName="confirmPassword">
+          <button mat-icon-button matSuffix (click)="toggleConfirmPasswordVisibility()">
+            <mat-icon>{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+        </mat-form-field>
+        <br>
+        <div class="buttons">
+          <button type="submit">Registrar</button>
+        </div>
+      </form>
+    </mat-card>
+  </div>
+
+
+</div>

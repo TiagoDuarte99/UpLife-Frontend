@@ -1,0 +1,114 @@
+.grid{
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-gap: 20px;
+}
+
+.editingScheduling{
+  padding-bottom: 60px;
+}
+
+.scheduling-item{
+  position: relative;
+  margin-bottom: 10px;
+  background-color: #fff;
+  transition: background-color 0.3s ease-in-out;
+  padding: 30px;
+  border: 2px solid #0b0d4d;
+  border-radius: 10px;
+}
+.scheduling-item.gray-bg {
+  background-color: #f2f2f2; 
+}
+
+.editing {
+  background-color: #58d3ff !important;
+  color: white;
+  button{
+    background-color: #0b0d4d;
+  }
+}
+
+button {
+  flex: 0 0 auto;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #0b0d4d;
+  color: #ffffff;
+  border: none;
+  height: fit-content;
+  cursor: pointer;
+}
+
+.agendamento-freelancer-info, .agendamento-servico-info{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.paginator{
+  padding-bottom: 60px;
+}
+
+.mat-mdc-radio-button.mat-accent{
+  --mdc-radio-selected-focus-icon-color: #58d3ff;
+  --mdc-radio-selected-hover-icon-color:#58d3ff;
+  --mdc-radio-selected-icon-color: #58d3ff;
+  --mdc-radio-selected-pressed-icon-color: #58d3ff;
+}
+
+.agendamento-container{
+  cursor: pointer;
+}
+
+
+.agendamento-container2 {
+  min-height: calc(100vh - 120px);
+  margin: 30px 200px;
+}
+.agendamento-cliente-info2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: solid 1px black;
+  padding: 1rem;
+}
+.agendamento-servico-info2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-right: solid 1px black;
+  border-bottom: solid 1px black;
+  border-left: solid 1px black;
+  padding: 1rem;
+}
+.agendamento-freelancer-info2 {
+  border-right: solid 1px black;
+  border-bottom: solid 1px black;
+  border-left: solid 1px black;
+  padding: 1rem;
+}
+strong {
+  margin-right: 0.5rem;
+}
+
+.details{
+  display: flex;
+  justify-content: space-between;
+}
+
+.editingButtons{
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.custom-action-button {
+  background-color: #4caf50; /* Cor de fundo desejada */
+  color: white; /* Cor do texto desejada */
+}
+
+/* Altere o estilo do botão principal do Snackbar usando a classe personalizada */
+.custom-action-button.mat-flat-button {
+  background-color: #4caf50; /* Cor de fundo desejada */
+  color: white; /* Cor do texto desejada */
+}

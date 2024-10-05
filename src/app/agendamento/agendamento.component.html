@@ -1,0 +1,120 @@
+<div class="agendamento-container">
+  <div>
+  <h1>Resumo da Marcação:</h1>
+  <div class="bottonSchedulings">
+    <button [routerLink]="['/clientHp']">Ir para agendamentos</button>
+  </div>
+</div>
+  <div class="agendamento-cliente-info">
+    <div>
+      <div>
+        <h2>Dados Cliente</h2>
+      </div>
+      <div>
+        <strong>Nome:</strong>{{ schedule.clientFirstName }}
+        {{ schedule.clientLastName }}
+      </div>
+      <div><strong>Contacto:</strong> {{ schedule.clientPhoneNumber }}</div>
+      <div><strong>Morada:</strong> {{ schedule.clientAddress }}</div>
+    </div>
+    <div style="text-align: center">
+      <img alt="Logo" class="logo" src="assets/logotipoAgendamento.png" />
+    </div>
+  </div>
+  <div class="agendamento-servico-info">
+    <div>
+      <h2>Dados Serviço</h2>
+
+      <div><strong>Distrito:</strong>{{ schedule.districtName }}</div>
+      <div><strong>Concelho:</strong>{{ schedule.countyName }}</div>
+      <div>
+        <strong>Data:</strong>{{ schedule.dateScheduling | date : "yyyy-MM-dd" }}
+      </div>
+      <div><strong>Hora inicio:</strong> {{ schedule.startTime }}</div>
+      <div><strong>Hora fim:</strong> {{ schedule.endTime }}</div>
+      <div><strong>Tipo serviço:</strong>{{ schedule.typeServiceName }}</div>
+    </div>
+
+    <div *ngIf="schedule.typeServiceId === 1">
+      <div style="margin-top: 47px">
+        <strong>Tipo de propriedade: </strong>{{ schedule.scheduleDetails.propertyTypeR }}
+      </div>
+      <div>
+        <strong>Tamanho imovel: </strong>
+        {{ schedule.scheduleDetails.sizeM2R }} m²
+      </div>
+      <div>
+        <strong>Quantidade de casas de banho: </strong>
+        {{ schedule.scheduleDetails.bathroomQuantityR }}
+      </div>
+      <div>
+        <strong>Serviço engomadoria:</strong>
+        {{ schedule.scheduleDetails.ironingServicesR }}
+      </div>
+      <div>
+        <strong>Animais:</strong> {{ schedule.scheduleDetails.petFriendlyR }}
+      </div>
+    </div>
+
+    <div *ngIf="schedule.typeServiceId === 2">
+      <div  style="margin-top: 47px">
+        <strong>Tipo de propriedade: </strong>{{ schedule.scheduleDetails.propertyTypeC }}
+      </div>
+      <div>
+        <strong>Tamanho imovel: </strong>
+        {{ schedule.scheduleDetails.sizeM2C }} m²
+      </div>
+      <div>
+        <strong>Quantidade de casas de banho: </strong>
+        {{ schedule.scheduleDetails.bathroomQuantityC }}
+      </div>
+      <div>
+        <strong>Limpeza de vidros:</strong>
+        {{ schedule.scheduleDetails.windowCleaningC }}
+      </div>
+      <div>
+        <strong>Vestiarios:</strong> {{ schedule.scheduleDetails.changingRoomsC }}
+      </div>
+      <div>
+        <strong>Outros cenarios:</strong> {{ schedule.scheduleDetails.otherScenariosC }}
+      </div>
+    </div>
+
+    <div *ngIf="schedule.typeServiceId === 3">
+      <div  style="margin-top: 47px">
+        <strong>Tipo de propriedade: </strong>{{ schedule.scheduleDetails.propertyTypeP }}
+      </div>
+      <div>
+        <strong>Tamanho imovel: </strong>
+        {{ schedule.scheduleDetails.sizeM2P }} m²
+      </div>
+      <div>
+        <strong>Quantidade de casas de banho: </strong>
+        {{ schedule.scheduleDetails.bathroomQuantityP }}
+      </div>
+      <div>
+        <strong>Limpeza de vidros:</strong>
+        {{ schedule.scheduleDetails.windowCleaningP }}
+      </div>
+      <div>
+        <strong>Mobilia no imovel:</strong> {{ schedule.scheduleDetails.furnitureP }}
+      </div>
+      <div>
+        <strong>Outros cenarios:</strong> {{ schedule.scheduleDetails.otherScenariosP }}
+      </div>
+    </div>
+  
+  </div>
+  <div class="agendamento-freelancer-info">
+    <div>
+      <h2>Dados Freelancer</h2>
+    </div>
+    <div>
+      <strong>Nome:</strong> {{ schedule.freelancerFirstName }}
+      {{ schedule.freelancerLastName }}
+    </div>
+    <div><strong>Contacto:</strong>{{ schedule.freelancerPhoneNumber }}</div>
+    <div><strong>Morada:</strong> {{ schedule.freelancerAddress }}</div>
+    <div><strong>Preço/hora:</strong> {{ schedule.pricePerHour }} €</div>
+  </div>
+</div>

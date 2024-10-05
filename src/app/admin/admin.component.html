@@ -1,0 +1,17 @@
+
+<div class="button-container">
+  <button (click)="showComponent('Estatisticas')">Estatistica</button>
+  <button (click)="showComponent('concelhos')">Concelhos</button>
+  <button (click)="showComponent('distritosConcelhos')">Distrito</button>
+  <button (click)="showComponent('tipoServicos')">Tipo Serviços</button>
+  <button (click)="showComponent('users')">Users</button>
+
+</div>
+
+<div class="component-container">
+  <app-admin-distritos-concelhos *ngIf="selectedComponent === 'distritosConcelhos'"></app-admin-distritos-concelhos>
+  <app-admin-concelhos *ngIf="selectedComponent === 'concelhos'"></app-admin-concelhos>
+  <app-admin-tipos-servicos *ngIf="selectedComponent === 'tipoServicos'"></app-admin-tipos-servicos>
+  <app-mats *ngIf="selectedComponent === 'Estatisticas'"></app-mats>
+  <app-admin-users *ngIf="selectedComponent === 'users'"></app-admin-users>
+</div>

@@ -1,0 +1,152 @@
+<div>
+  <div id="info-div" *ngIf="isSuccess">
+    <div class="alert alert-success d-flex align-items-center justify-content-between mb-15" role="alert">
+      <div class="flex-fill mr-10">
+        <p class="mb-0" id="info-message">{{message1}}</p>
+      </div>
+    </div>
+  </div>
+  <div id="alert-div" *ngIf="isAlert">
+    <div class="alert alert-warning d-flex align-items-center justify-content-between mb-15" role="alert">
+      <div class="flex-fill mr-10">
+        <p class="mb-0" id="alert-message">{{alert1}}</p>
+      </div>
+    </div>
+  </div>
+  <div id="error-div" *ngIf="isError">
+    <div class="alert alert-danger d-flex align-items-center justify-content-between mb-15" role="alert">
+      <div class="flex-fill mr-10" id="error-message">
+        <p class="mb-0">Aconteceu um erro inesperado. Por favor, entre em contato com o seu administrador do sistema.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="!editingMode">
+  <h1>Insira utilizadores</h1>
+  <div class="insertUser">
+    <mat-form-field class="serviceNameEmail">
+      <mat-label>Email:</mat-label>
+      <input matInput [(ngModel)]="email">
+    </mat-form-field>
+    
+    <mat-form-field class="serviceName">
+      <mat-label for="password">Nova Password:</mat-label>
+      <input matInput type="{{ hideNewPassword ? 'password' : 'text' }}" id="newPassword" name="newPassword"
+      [(ngModel)]="newPassword">
+      <button mat-icon-button matSuffix (click)="toggleNewPasswordVisibility()">
+        <mat-icon>{{ hideNewPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+    </mat-form-field>
+    
+    <mat-form-field class="serviceName">
+      <mat-label for="confirmPassword">Confirmar nova Password</mat-label>
+      <input matInput type="{{ hideConfirmPassword ? 'password' : 'text' }}" id="confirmPassword" name="confirmPassword"
+      [(ngModel)]="confirmNewPassword">
+      <button mat-icon-button matSuffix (click)="toggleConfirmPasswordVisibility()">
+        <mat-icon>{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+    </mat-form-field>
+    <button (click)="createUser()">Inserir Utilizador</button>
+  </div>
+  
+</div>
+<div class="editingUser" *ngIf="editingMode">
+  <h1>Edite o utilizador selecionado</h1>
+  <div class="edit">
+    <mat-form-field class="serviceName">
+      <mat-label>Email:</mat-label>
+      <input matInput [(ngModel)]="email">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Status do Serviço</mat-label>
+      <mat-select [(ngModel)]="isActive" class="serviceStatusToggle">
+        <mat-option [value]="true">Ativo</mat-option>
+        <mat-option [value]="false">Inativo</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="edit">
+
+    <mat-form-field class="serviceName">
+      <mat-label for="password">Password Antiga:</mat-label>
+      <input matInput type="{{ hidePassword ? 'password' : 'text' }}" id="password" name="password"
+        [(ngModel)]="oldPassword">
+      <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+        <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field class="serviceName">
+      <mat-label for="password">Nova Password:</mat-label>
+      <input matInput type="{{ hideNewPassword ? 'password' : 'text' }}" id="newPassword" name="newPassword"
+        [(ngModel)]="newPassword">
+      <button mat-icon-button matSuffix (click)="toggleNewPasswordVisibility()">
+        <mat-icon>{{ hideNewPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field class="serviceName">
+      <mat-label for="confirmPassword">Confirmar nova Password</mat-label>
+      <input matInput type="{{ hideConfirmPassword ? 'password' : 'text' }}" id="confirmPassword" name="confirmPassword"
+        [(ngModel)]="confirmNewPassword">
+      <button mat-icon-button matSuffix (click)="toggleConfirmPasswordVisibility()">
+        <mat-icon>{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+  <div class="edit buttons">
+    <button (click)="updateUser()">Alterar Utilizador</button>
+    <button (click)="cancelEdit()">Cancelar</button>
+  </div>
+</div>
+
+
+<div  style="display: flex;">
+  <div>
+    <h1>Insira o email para encontrar um utilizador</h1>
+    <mat-form-field class="serviceNameEmail">
+      <mat-label>Email:</mat-label>
+      <input matInput [(ngModel)]="emailScearch">
+    </mat-form-field>
+  
+  <button style="margin-left: 20px;" (click)="searchUser(emailScearch)">Procurar utilizador</button>
+  </div>
+  <div *ngIf="noUserSearch" [ngClass]="{'editing': editing}" class="schedule-item2">
+    <div class="scheduling">
+      <p><strong>Email:</strong> {{ userSearch.email}}</p>
+      <p><strong>Ultimo Login:</strong> {{ userSearch.lastTimeLogin | date:'yyyy-MM-dd HH:mm:ss' ?? 'Ainda nao efetuou nenhum login'}}</p>
+      <p><strong>Estado:</strong> {{ userSearch.active ? 'Ativo' : 'Inativo' }}</p>
+    </div>
+    <div class="schedulingButtons">
+      <button (click)="editUserSearch(userSearch)">Editar</button>
+      <button (click)="exibirMensagem(userSearch)">Excluir</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="containerListScheduling">
+  <h1>Utilizadores</h1>
+  <div class="listScheduling">
+    <div *ngFor="let user of users; let i = index" class="schedule-item" [class.gray-bg]="i % 2 !== 0"
+      [class.editing]="editingIndex === i">
+      <div class="scheduling">
+        <p><strong>Email:</strong> {{ user.email}}</p>
+        <p><strong>Ultimo Login:</strong> {{ user.lastTimeLogin | date:'yyyy-MM-dd HH:mm:ss' ?? 'Ainda nao efetuou nenhum login'}}</p>
+        <p><strong>Estado:</strong> {{ user.active ? 'Ativo' : 'Inativo' }}</p>
+      </div>
+      <div class="schedulingButtons">
+        <button (click)="editUser(user, i)">Editar</button>
+        <button (click)="exibirMensagem(user)">Excluir</button>
+      </div>
+    </div>
+  </div>
+  <div class="paginator">
+    <mat-paginator [length]="totalResults" [pageSize]="12" (page)="onPageChange($event)"></mat-paginator>
+  </div>
+</div>

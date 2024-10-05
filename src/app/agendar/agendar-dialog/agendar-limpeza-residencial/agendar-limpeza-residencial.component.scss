@@ -1,0 +1,48 @@
+h1 {
+  text-align: center;
+}
+.agendar-limpeza-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: white;
+  align-items: center;
+  color: #0b0d4d;
+}
+.agendar-limpeza-content-left {
+  text-align: center;
+  border-right: 3px solid black;
+}
+.agendar-limpeza-content-right {
+  text-align: center;
+}
+.mat-form-group-two {
+  mat-radio-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.mat-mdc-radio-button.mat-accent{
+    --mdc-radio-selected-focus-icon-color: #58d3ff;
+    --mdc-radio-selected-hover-icon-color:#58d3ff;
+    --mdc-radio-selected-icon-color: #58d3ff;
+    --mdc-radio-selected-pressed-icon-color: #58d3ff;
+}
+.agendar-limpeza-counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem;
+  gap: 0.8rem;
+}
+
+button {
+  flex: 0 0 auto;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #58d3ff;
+  color: #ffffff;
+  border: none;
+  height: fit-content;
+  cursor: pointer;
+}

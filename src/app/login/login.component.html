@@ -1,0 +1,51 @@
+<div class="container-pai">
+  <div class="imagem">
+    <img src="../../assets/LogoSignin.svg" alt="">
+  </div>
+  <div class="login-container">
+    <h1>Bem vindo</h1>
+
+    <div id="info-div" *ngIf="isSuccess">
+      <div class="alert alert-success d-flex align-items-center justify-content-between mb-15" role="alert">
+        <div class="flex-fill mr-10">
+          <p class="mb-0" id="info-message">{{message1}}</p>
+        </div>
+      </div>
+    </div>
+    <div id="alert-div" *ngIf="isAlert">
+      <div class="alert alert-warning d-flex align-items-center justify-content-between mb-15" role="alert">
+        <div class="flex-fill mr-10">
+          <p class="mb-0" id="alert-message">{{alert1}}</p>
+        </div>
+      </div>
+    </div>
+    <div id="error-div" *ngIf="isError">
+      <div class="alert alert-danger d-flex align-items-center justify-content-between mb-15" role="alert">
+        <div class="flex-fill mr-10" id="error-message">
+          <p class="mb-0">Aconteceu um erro inesperado. Por favor, entre em contato com o seu administrador do sistema.</p>
+        </div>
+      </div>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <mat-form-field class="form-group">
+        <mat-label for="email">Utilizador:</mat-label>
+        <input matInput type="text" id="email" name="email" formControlName="email" required>
+      </mat-form-field>
+      <mat-form-field class="form-group">
+        <mat-label for="password">Password:</mat-label>
+        <input matInput type="{{ hidePassword ? 'password' : 'text' }}" id="password" name="password"
+          formControlName="password" required>
+        <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+          <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+      </mat-form-field>
+      <br>
+      <div class="buttons">
+        <button [routerLink]="['/criarContaEscolha']">Registrar</button>
+        <button type="submit">Iniciar Sessão</button>
+      </div>
+
+    </form>
+  </div>
+</div>

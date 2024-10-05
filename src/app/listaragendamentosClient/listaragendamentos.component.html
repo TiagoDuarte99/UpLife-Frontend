@@ -1,0 +1,396 @@
+<div class="listschedulings">
+  <div>
+    <div id="info-div" *ngIf="isSuccess">
+      <div class="alert alert-success d-flex align-items-center justify-content-between mb-15" role="alert">
+        <div class="flex-fill mr-10">
+          <p class="mb-0" id="info-message">{{message1}}</p>
+        </div>
+      </div>
+    </div>
+    <div id="alert-div" *ngIf="isAlert">
+      <div class="alert alert-warning d-flex align-items-center justify-content-between mb-15" role="alert">
+        <div class="flex-fill mr-10">
+          <p class="mb-0" id="alert-message">{{alert1}}</p>
+        </div>
+      </div>
+    </div>
+    <div id="error-div" *ngIf="isError">
+      <div class="alert alert-danger d-flex align-items-center justify-content-between mb-15" role="alert">
+        <div class="flex-fill mr-10" id="error-message">
+          <p class="mb-0">Aconteceu um erro inesperado. Por favor, entre em contato com o seu administrador do sistema.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="allSchedulings === true">
+    <h1>Escolha uma data para listar os seus agendamentos nesse dia.</h1>
+    <mat-form-field>
+      <mat-label>Data</mat-label>
+      <input matInput [matDatepicker]="picker" [(ngModel)]="date" (ngModelChange)="onDateChange()" />
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <button style="margin-left: 20px;" (click)="resetDate()">Obter todos os agendamentos</button>
+  </div>
+  <div *ngIf="listSchedulings === true">
+    <div *ngIf="allSchedulings === true">
+      <h1>Os seus agendamentos:</h1>
+    </div>
+    <div *ngIf="allSchedulings" class="grid">
+      <div *ngFor="let scheduling of schedulings; let i = index" class="scheduling-item" [class.gray-bg]="i % 2 !== 0"
+        [class.editing]="editingIndex === i">
+        <div class="agendamento-container" (click)="detailsScheduling(scheduling, i)">
+          <div>
+            <strong>Cliente:</strong>{{ scheduling.clientFirstName }}
+            {{ scheduling.clientLastName }}
+          </div>
+          <div>
+            <strong>Data:</strong>{{ scheduling.dateScheduling | date : "yyyy-MM-dd" }}
+          </div>
+          <div><strong>Hora:</strong> {{ scheduling.startTime }} - {{ scheduling.endTime }}</div>
+          <div><strong>Tipo serviço:</strong>{{ scheduling.typeServiceName }}</div>
+          <div>
+            <strong>Freelancer:</strong> {{ scheduling.freelancerFirstName }}
+            {{ scheduling.freelancerLastName }}
+          </div>
+          <div><strong>Preço/hora:</strong> {{ scheduling.pricePerHour }} €</div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="paginator" *ngIf="listSchedulings === true && allSchedulings">
+    <mat-paginator [length]="totalResults" [pageSize]="12" (page)="onPageChange($event)"></mat-paginator>
+  </div>
+</div>
+
+<div *ngIf="noSchedulings === true">
+  <h1>Não tem agendamentos disponiveis para essa data</h1>
+</div>
+
+
+
+
+
+<div *ngIf="!allSchedulings" class="details">
+  <h1>Detalhes do agendamento:</h1>
+  <div class="right">
+    <button (click)="backSchedulings()">Voltar aos agendamentos</button>
+  </div>
+</div>
+<div *ngIf="!allSchedulings" class="editingScheduling">
+  <div class="agendamento-container2">
+    <div class="left">
+      <div class="agendamento-cliente-info2">
+        <div>
+          <div>
+            <h2>Dados Cliente</h2>
+          </div>
+          <div>
+            <strong>Nome:</strong>{{ selectedScheduling.clientFirstName }}
+            {{selectedScheduling.clientLastName }}
+          </div>
+          <div><strong>Contacto:</strong> {{ selectedScheduling.clientPhoneNumber }}</div>
+          <div><strong>Morada:</strong> {{ selectedScheduling.clientAddress }}</div>
+        </div>
+      </div>
+
+      <div class="agendamento-freelancer-info2">
+        <div>
+          <h2>Dados Freelancer</h2>
+        </div>
+        <div>
+          <strong>Nome:</strong> {{ selectedScheduling.freelancerFirstName }}
+          {{ selectedScheduling.freelancerLastName }}
+        </div>
+        <div><strong>Contacto:</strong>{{ selectedScheduling.freelancerPhoneNumber }}</div>
+        <div><strong>Morada:</strong> {{ selectedScheduling.freelancerAddress }}</div>
+        <div><strong>Preço/hora:</strong> {{ selectedScheduling.pricePerHour }} €</div>
+      </div>
+    </div>
+
+    <div class="agendamento-servico-info2">
+      <div>
+        <h2>Dados Serviço</h2>
+
+        <div><strong>Distrito:</strong>{{ selectedScheduling.districtName }}</div>
+        <div><strong>Concelho:</strong>{{ selectedScheduling.countyName }}</div>
+        <div><strong>Morada:</strong>{{ selectedScheduling.address }}</div>
+
+        <div>
+          <strong>Data:</strong>{{ selectedScheduling.dateScheduling | date : "yyyy-MM-dd" }}
+        </div>
+        <div><strong>Hora inicio:</strong> {{ selectedScheduling.startTime }}</div>
+        <div><strong>Hora fim:</strong> {{ selectedScheduling.endTime }}</div>
+        <div><strong>Tipo serviço:</strong>{{ selectedScheduling.typeServiceName }}</div>
+      </div>
+      <div>
+        <div *ngIf="selectedScheduling.typeServiceId === 1">
+          <div>
+            <strong>Tipo de propriedade: </strong>{{ selectedScheduling.scheduleDetails.propertyTypeR }}
+          </div>
+          <div>
+            <strong>Tamanho imovel: </strong>
+            {{ selectedScheduling.scheduleDetails.sizeM2R }} m²
+          </div>
+          <div>
+            <strong>Quantidade de casas de banho: </strong>
+            {{ selectedScheduling.scheduleDetails.bathroomQuantityR }}
+          </div>
+          <div>
+            <strong>Serviço engomadoria:</strong>
+            {{ selectedScheduling.scheduleDetails.ironingServicesR }}
+          </div>
+          <div>
+            <strong>Animais:</strong> {{ selectedScheduling.scheduleDetails.petFriendlyR }}
+          </div>
+
+
+
+          <div *ngIf="editingMode" [formGroup]="formGroupResidential">
+            <div class="agendar-limpeza-content">
+              <div class="agendar-limpeza-content-left">
+                <div>Selecione o tipo de imóvel</div>
+                <div class="mat-form-group-two">
+                  <mat-radio-group aria-label="Select an option" formControlName="propertyTypeR">
+                    <mat-radio-button value="apartamento">Apartamento</mat-radio-button>
+                    <mat-radio-button value="moradia">Moradia</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+                <div>
+                  Qual tamanho do imóvel em que serão realizados os serviços de limpeza?
+                </div>
+                <div class="mat-form-group-two">
+                  <mat-radio-group aria-label="Select an option" formControlName="sizeM2R">
+                    <mat-radio-button value="40">Até 40m2 </mat-radio-button>
+                    <mat-radio-button value="40-80">Entre 40m2 e 80m2</mat-radio-button>
+                    <mat-radio-button value="80-135">Entre 80m2 e 135m2</mat-radio-button>
+                    <mat-radio-button value="+135">Acima de 135 m2</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+
+              </div>
+              <div class="agendar-limpeza-content-right">
+                <div>Quantas casas de banho possui o imóvel?</div>
+                <div>
+                  <mat-radio-group aria-label="Select an option" formControlName="bathroomQuantityR">
+                    <mat-radio-button value="1">1 </mat-radio-button>
+                    <mat-radio-button value="2">2</mat-radio-button>
+                    <mat-radio-button value="3">3</mat-radio-button>
+                    <mat-radio-button value="4">4+</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+                <div>
+                  Deseja adicionar serviços de engomadoria?
+                </div>
+                <div>
+                  <mat-radio-group aria-label="Select an option" formControlName="ironingServicesR">
+                    <mat-radio-button value="Não">Não</mat-radio-button>
+                    <mat-radio-button value="1">1 hora</mat-radio-button>
+                    <mat-radio-button value="2">2 horas</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+                <div>Há animais de estimação no imóvel?</div>
+                <div>
+                  <mat-radio-group aria-label="Select an option" formControlName="petFriendlyR">
+                    <mat-radio-button value="Não">Não</mat-radio-button>
+                    <mat-radio-button value="Sim">Sim</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div *ngIf="selectedScheduling.typeServiceId === 2">
+
+          <div>
+            <strong>Tipo de propriedade: </strong>{{ selectedScheduling.scheduleDetails.propertyTypeC }}
+          </div>
+          <div>
+            <strong>Tamanho imovel: </strong>
+            {{ selectedScheduling.scheduleDetails.sizeM2C }} m²
+          </div>
+          <div>
+            <strong>Quantidade de casas de banho: </strong>
+            {{ selectedScheduling.scheduleDetails.bathroomQuantityC }}
+          </div>
+          <div>
+            <strong>Limpeza de vidros:</strong>
+            {{ selectedScheduling.scheduleDetails.windowCleaningC }}
+          </div>
+          <div>
+            <strong>Vestiarios:</strong> {{ selectedScheduling.scheduleDetails.changingRoomsC }}
+          </div>
+          <div>
+            <strong>Outros cenarios:</strong> {{ selectedScheduling.scheduleDetails.otherScenariosC }}
+          </div>
+
+          <div *ngIf="editingMode" [formGroup]="formGroupCommercial">
+            <div class="agendar-limpeza-content">
+              <div class="agendar-limpeza-content-left">
+                <div>
+                  Selecione o tipo de imóvel:
+                </div>
+                <div>
+                  <mat-radio-group aria-label="Select an option" formControlName="propertyTypeC">
+                    <mat-radio-button value="loja">Loja</mat-radio-button>
+                    <mat-radio-button value="escritorio">Escritório</mat-radio-button>
+                    <mat-radio-button value="fabrica">Fábrica</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+
+                <div>
+                  Qual tamanho do imóvel em que serão realizados os serviços de limpeza?
+                </div>
+                <div class="mat-form-group-two">
+                  <mat-radio-group aria-label="Select an option" formControlName="sizeM2C">
+                    <mat-radio-button value="60">Até 60m2 </mat-radio-button>
+                    <mat-radio-button value="60-100">Entre 60m2 e 100m2</mat-radio-button>
+                    <mat-radio-button value="100-160">Entre 100m2 e 160m2</mat-radio-button>
+                    <mat-radio-button value="+160">Acima de 160 m2</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+                <div>Quantas casas de banho possui o escritório?</div>
+                <div>
+                  <mat-radio-group aria-label="Select an option" formControlName="bathroomQuantityC">
+                    <mat-radio-button value="1">1 </mat-radio-button>
+                    <mat-radio-button value="2">2</mat-radio-button>
+                    <mat-radio-button value="3">3</mat-radio-button>
+                    <mat-radio-button value="4">4+</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+              </div>
+              <div class="agendar-limpeza-content-right">
+                <div>
+                  Quantos vestiários o imóvel possui?
+                </div>
+                <div>
+                  <mat-radio-group aria-label="Select an option" formControlName="changingRoomsC">
+                    <mat-radio-button value="0">0</mat-radio-button>
+                    <mat-radio-button value="1">1</mat-radio-button>
+                    <mat-radio-button value="2">2</mat-radio-button>
+                    <mat-radio-button value="3">3</mat-radio-button>
+                    <mat-radio-button value="4+">4+</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+
+                <div>
+                  Deseja incluir limpeza de janelas?
+                </div>
+                <div>
+                  <mat-radio-group aria-label="Select an option" formControlName="windowCleaningC">
+                    <mat-radio-button value="Não">Não</mat-radio-button>
+                    <mat-radio-button value="Sim">Sim</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+                <div>Outros cenários ou informações adicionais:</div>
+                <div>
+                  <textarea matInput formControlName="otherScenariosC" placeholder="Insira dados revelantes"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="selectedScheduling.typeServiceId === 3">
+
+          <div>
+            <strong>Tipo de propriedade: </strong>{{ selectedScheduling.scheduleDetails.propertyTypeP }}
+          </div>
+          <div>
+            <strong>Tamanho imovel: </strong>
+            {{ selectedScheduling.scheduleDetails.sizeM2P }} m²
+          </div>
+          <div>
+            <strong>Quantidade de casas de banho: </strong>
+            {{ selectedScheduling.scheduleDetails.bathroomQuantityP }}
+          </div>
+          <div>
+            <strong>Limpeza de vidros:</strong>
+            {{ selectedScheduling.scheduleDetails.windowCleaningP }}
+          </div>
+          <div>
+            <strong>Mobilia no imovel:</strong> {{ selectedScheduling.scheduleDetails.furnitureP }}
+          </div>
+          <div>
+            <strong>Outros cenarios:</strong> {{ selectedScheduling.scheduleDetails.otherScenariosP }}
+          </div>
+
+
+          <div *ngIf="editingMode" [formGroup]="formGroupPosObra">
+            <div class="agendar-limpeza-content">
+              <div class="agendar-limpeza-content-left">
+                <div>Selecione o tipo de imóvel</div>
+                <div class="mat-form-group-two">
+                  <mat-radio-group aria-label="Select an option" formControlName="propertyTypeP">
+                    <mat-radio-button value="apartamento">Apartamento</mat-radio-button>
+                    <mat-radio-button value="moradia">Moradia</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+
+                <div>
+                  Qual tamanho do imóvel em que serão realizados os serviços de limpeza?
+                </div>
+                <div class="mat-form-group-two">
+                  <mat-radio-group aria-label="Select an option" formControlName="sizeM2P">
+                    <mat-radio-button value="60">Até 60m2 </mat-radio-button>
+                    <mat-radio-button value="60-100">Entre 60m2 e 100m2</mat-radio-button>
+                    <mat-radio-button value="100-160">Entre 100m2 e 160m2</mat-radio-button>
+                    <mat-radio-button value="+160">Acima de 160 m2</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+                <div>Quantas casas de banho possui o Imovel?</div>
+                <div>
+                  <mat-radio-group aria-label="Select an option" formControlName="bathroomQuantityP">
+                    <mat-radio-button value="1">1 </mat-radio-button>
+                    <mat-radio-button value="2">2</mat-radio-button>
+                    <mat-radio-button value="3">3</mat-radio-button>
+                    <mat-radio-button value="4">4+</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+              </div>
+              <div class="agendar-limpeza-content-right">
+                <div>
+                  Há mobilia no imovel?
+                </div>
+                <div>
+                  <mat-radio-group aria-label="Select an option" formControlName="furnitureP">
+                    <mat-radio-button value="Não">Não</mat-radio-button>
+                    <mat-radio-button value="Sim">Sim</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+
+                <div>
+                  Deseja incluir limpeza de janelas?
+                </div>
+                <div>
+                  <mat-radio-group aria-label="Select an option" formControlName="windowCleaningP">
+                    <mat-radio-button value="Não">Não</mat-radio-button>
+                    <mat-radio-button value="Sim">Sim</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+                <div>Outros cenários ou informações adicionais:</div>
+                <div>
+                  <textarea matInput formControlName="otherScenariosP" placeholder="Insira dados revelantes"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div></div>
+      <div class="editingButtons">
+        <button *ngIf="!editingMode && clientEdit" (click)="editScheduling()"> Editar agendamento</button>
+        <button *ngIf="!editingMode" style="margin-left:20px; margin-right: 20px;" (click)="exibirMensagem()">Eliminar agendamento</button>
+        <button *ngIf="editingMode" (click)="updateScheduling()">Guardar Alterações</button>
+        <button style="margin-left: 20px;" *ngIf="editingMode" (click)="cancelEdit()">Cancelar edição</button>
+      </div>
+    </div>
+
+    
+  </div>
+</div>

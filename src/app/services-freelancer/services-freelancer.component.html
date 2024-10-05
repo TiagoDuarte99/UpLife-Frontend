@@ -1,0 +1,72 @@
+<div>
+  <div>
+    <div id="info-div" *ngIf="isSuccess">
+      <div class="alert alert-success d-flex align-items-center justify-content-between mb-15" role="alert">
+        <div class="flex-fill mr-10">
+          <p class="mb-0" id="info-message">{{message1}}</p>
+        </div>
+      </div>
+    </div>
+    <div id="alert-div" *ngIf="isAlert">
+      <div class="alert alert-warning d-flex align-items-center justify-content-between mb-15" role="alert">
+        <div class="flex-fill mr-10">
+          <p class="mb-0" id="alert-message">{{alert1}}</p>
+        </div>
+      </div>
+    </div>
+    <div id="error-div" *ngIf="isError">
+      <div class="alert alert-danger d-flex align-items-center justify-content-between mb-15" role="alert">
+        <div class="flex-fill mr-10" id="error-message">
+          <p class="mb-0">Aconteceu um erro inesperado. Por favor, entre em contato com o seu administrador do sistema.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <h1 *ngIf="!editingMode">Insira um serviço em que pretende trabalhar:</h1>
+    <h1 *ngIf="editingMode">Editar serviço selecionado:</h1>
+  </div>
+</div>
+<div class="container">
+  <mat-form-field>
+    <mat-label>Tipo de serviço</mat-label>
+    <mat-select [(ngModel)]="selectedServiceType">
+      <mat-option *ngFor="let service of serviceTypes" [value]="service.value">
+        {{ service.viewValue }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Preço por hora:</mat-label>
+    <div class="price-input-container">
+      <span class="euro-symbol">€</span>
+      <input matInput type="number" step="0.01" [(ngModel)]="selectedPrice">
+    </div>
+  </mat-form-field>
+
+  <button *ngIf="!editingMode" (click)="addFreelancerService()">Adicionar Serviço</button>
+  <div>
+    <button *ngIf="editingMode" (click)="updateFreelancerSchedule()">Guardar Serviço</button>
+    <br>
+    <br>
+    <button *ngIf="editingMode" (click)="cancelEdit()">Cancelar edição</button>
+  </div>
+</div>
+
+<div class="containerListScheduling">
+  <h1>Os seus serviços</h1>
+  <div class="listScheduling">
+    <div *ngFor="let service of services; let i = index" class="schedule-item" [class.gray-bg]="i % 2 !== 0"
+      [class.editing]="editingIndex === i">
+      <div class="scheduling">
+        <p><strong>Serviço:</strong> {{ service.serviceTypeName}}</p>
+        <p><strong>Preço por hora:</strong> {{ service.pricePerHour }} €</p>
+      </div>
+      <div class="schedulingButtons">
+        <button (click)="editService(service, i)">Editar</button>
+        <button (click)="exibirMensagem(service)">Excluir</button>
+      </div>
+    </div>
+  </div>
+</div>

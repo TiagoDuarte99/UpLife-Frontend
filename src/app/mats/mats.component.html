@@ -1,0 +1,24 @@
+<div class="container">
+  <h2>Média do preço por hora de cada tipo de serviço</h2>
+  <div class="card">
+    <p-chart
+      type="doughnut"
+      [data]="mediaData | async"
+      [options]="options"
+    ></p-chart>
+  </div>
+
+  <h2>Mediana do preço por hora de cada tipo de serviço</h2>
+  <div class="card">
+    <p-chart
+      type="pie"
+      [data]="medianaData | async"
+      [options]="options"
+    ></p-chart>
+  </div>
+
+  <div class="card2">
+    <h2>Moda do preço por hora de cada tipo de serviço</h2>
+    <p-chart type="bar" [data]="modaData | async" [options]="options"></p-chart>
+  </div>
+</div>

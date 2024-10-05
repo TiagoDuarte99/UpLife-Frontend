@@ -1,0 +1,13 @@
+<div class="agendar-dialog-container" [ngSwitch]="currentStep">
+  <app-agendar-endereco
+    *ngSwitchCase="AgendarStep.ENDERECO"
+    (nextStep)="changeStep($event)"
+  ></app-agendar-endereco>
+  <app-agendar-limpeza-residencial
+    *ngSwitchCase="AgendarStep.LIMPEZA_RESIDENCIAL"
+    (nextStep)="changeStep($event)"
+  ></app-agendar-limpeza-residencial>
+  <app-agendar-receber-informacoes
+    *ngSwitchCase="AgendarStep.RECEBER_INFORMACOES"
+  ></app-agendar-receber-informacoes>
+</div>

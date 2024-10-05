@@ -1,0 +1,57 @@
+<div>
+  <div id="info-div" *ngIf="isSuccess">
+    <div class="alert alert-success d-flex align-items-center justify-content-between mb-15" role="alert">
+      <div class="flex-fill mr-10">
+        <p class="mb-0" id="info-message">{{message1}}</p>
+      </div>
+    </div>
+  </div>
+  <div id="alert-div" *ngIf="isAlert">
+    <div class="alert alert-warning d-flex align-items-center justify-content-between mb-15" role="alert">
+      <div class="flex-fill mr-10">
+        <p class="mb-0" id="alert-message">{{alert1}}</p>
+      </div>
+    </div>
+  </div>
+  <div id="error-div" *ngIf="isError">
+    <div class="alert alert-danger d-flex align-items-center justify-content-between mb-15" role="alert">
+      <div class="flex-fill mr-10" id="error-message">
+        <p class="mb-0">Aconteceu um erro inesperado. Por favor, entre em contato com o seu administrador do sistema.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="insertService" *ngIf="!editingMode">
+  <h1>Adicione mais serviços a plataforma</h1>
+  <mat-form-field class="serviceName">
+    <mat-label>Nome do Serviço:</mat-label>
+    <input matInput [(ngModel)]="serviceName">
+  </mat-form-field>
+  <button (click)="addFreelancerService()">Adicionar Serviço</button>
+</div>
+
+<div class="insertService" *ngIf="editingMode">
+  <h1>Edite o serviço selecionado</h1>
+  <mat-form-field class="serviceName">
+    <mat-label>Nome do Serviço:</mat-label>
+    <input matInput [(ngModel)]="serviceName">
+  </mat-form-field>
+  <button (click)="updateService()">Alterar Serviço</button>
+  <button style="margin-left: 20px;" (click)="cancelEdit()">Cancelar</button>
+</div>
+<div class="containerListScheduling">
+  <h1>Os serviços da plataforma</h1>
+  <div class="listScheduling">
+    <div *ngFor="let service of services; let i = index" class="schedule-item" [class.gray-bg]="i % 2 !== 0"
+      [class.editing]="editingIndex === i">
+      <div class="scheduling">
+        <p><strong>Serviço:</strong> {{ service.name}}</p>
+      </div>
+      <div class="schedulingButtons">
+        <button (click)="editService(service, i)">Editar</button>
+        <button (click)="exibirMensagem(service)">Excluir</button>
+      </div>
+    </div>
+  </div>
+</div>

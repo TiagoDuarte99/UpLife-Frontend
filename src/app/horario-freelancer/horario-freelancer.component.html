@@ -1,0 +1,117 @@
+<div>
+  <div id="info-div" *ngIf="isSuccess">
+    <div class="alert alert-success d-flex align-items-center justify-content-between mb-15" role="alert">
+      <div class="flex-fill mr-10">
+        <p class="mb-0" id="info-message">{{message1}}</p>
+      </div>
+    </div>
+  </div>
+  <div id="alert-div" *ngIf="isAlert">
+    <div class="alert alert-warning d-flex align-items-center justify-content-between mb-15" role="alert">
+      <div class="flex-fill mr-10">
+        <p class="mb-0" id="alert-message">{{alert1}}</p>
+      </div>
+    </div>
+  </div>
+  <div id="error-div" *ngIf="isError">
+    <div class="alert alert-danger d-flex align-items-center justify-content-between mb-15" role="alert">
+      <div class="flex-fill mr-10" id="error-message">
+        <p class="mb-0">Aconteceu um erro inesperado. Por favor, entre em contato com o seu administrador do sistema.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <h1 *ngIf="!editingMode">Insira uma data e horario que pretende trabalhar:</h1>
+  <h1 *ngIf="editingMode">Editar horario selecionado:</h1>
+</div>
+<div class="container">
+  <mat-form-field>
+    <mat-label>Escolha uma data:</mat-label>
+    <input [(ngModel)]="selectedDate" matInput [matDatepicker]="picker">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Hora de começo:</mat-label>
+    <mat-select [(ngModel)]="selectedHourStart">
+      <mat-option *ngFor="let hour of hours" [value]="hour.value">{{ hour.viewValue }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Hora de fim:</mat-label>
+    <mat-select [(ngModel)]="selectedHourEnd">
+      <mat-option *ngFor="let hour of hours" [value]="hour.value">{{ hour.viewValue }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button *ngIf="!editingMode" (click)="addFreelancerSchedule()">Adicionar Horario</button>
+  <div>
+    <button *ngIf="editingMode" (click)="updateFreelancerSchedule()">Guardar Horario</button>
+    <br>
+    <br>
+    <button *ngIf="editingMode" (click)="cancelEdit()">Cancelar edição</button>
+  </div>
+</div>
+
+<div class="containerListScheduling">
+  <h1>Escolha o dia ou o mes que pretende ver o horario</h1>
+
+  <mat-form-field>
+    <mat-label>Escolha o dia:</mat-label>
+    <mat-select [(ngModel)]="viewMode" (ngModelChange)="onViewModeChange()">
+      <mat-option value="month">Pos Mês</mat-option>
+      <mat-option value="day">Pos Dia</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Campos que aparecem quando viewMode é 'month' -->
+  <ng-container *ngIf="viewMode === 'month'; else dayFields">
+    <mat-form-field class="mat-right">
+      <mat-label>Mês:</mat-label>
+      <mat-select [(ngModel)]="selectedMonth" (ngModelChange)="onDateChange()">
+        <mat-option *ngFor="let month of months" [value]="month.value">{{ month.label }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="mat-right">
+      <mat-label>Ano:</mat-label>
+      <input matInput type="number" [(ngModel)]="selectedYear" (ngModelChange)="onDateChange()" min="2024">
+    </mat-form-field>
+  </ng-container>
+
+  <!-- Campos que aparecem quando viewMode é 'day' -->
+  <ng-template #dayFields>
+    <mat-form-field class="mat-right">
+      <mat-label>Data</mat-label>
+      <input matInput [matDatepicker]="listPicker" [(ngModel)]="selectedDay" (ngModelChange)="onDateChange()" />
+      <mat-datepicker-toggle matIconSuffix [for]="listPicker"></mat-datepicker-toggle>
+      <mat-datepicker #listPicker></mat-datepicker>
+    </mat-form-field>
+  </ng-template>
+
+
+  <div class="listScheduling" *ngIf="!noSchedule">
+
+    <div *ngFor="let schedule of schedules; let i = index" class="schedule-item" [class.gray-bg]="i % 2 !== 0"
+      [class.editing]="editingIndex === i">
+      <div class="scheduling">
+        <p><strong>Data:</strong> {{ schedule.date | date:'EEEE, MMMM d, y' }}</p>
+        <p><strong>Hora de Início:</strong> {{ schedule.startTime }}</p>
+        <p><strong>Hora de Fim:</strong> {{ schedule.endTime }}</p>
+      </div>
+      <div class="schedulingButtons">
+        <button (click)="editSchedule(schedule, i)">Editar</button>
+        <button (click)="exibirMensagem(schedule)">Excluir</button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="noSchedule">
+    <h2>Nao tem horario defenido nesse dia/mês</h2>
+  </div>
+  <br><br>
+
+</div>

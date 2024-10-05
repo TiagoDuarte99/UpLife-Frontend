@@ -1,0 +1,61 @@
+<h1>Limpeza Residencial, por favor, forneça algumas características do imóvel...</h1>
+<div class="agendar-limpeza-content">
+  <div class="agendar-limpeza-content-left">
+    <div style="margin-top: 2rem">Selecione o tipo de imóvel</div>
+    <div class="mat-form-group-two">
+      <mat-radio-group aria-label="Select an option">
+        <mat-radio-button value="apartamento">Apartamento</mat-radio-button>
+        <mat-radio-button value="moradia">Moradia</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div style="margin-top: 2rem">
+      Qual tamanho do imóvel em que serão realizados os serviços de limpeza?
+    </div>
+    <div class="mat-form-group-two">
+      <mat-radio-group aria-label="Select an option">
+        <mat-radio-button value="40">Até 40m2 </mat-radio-button>
+        <mat-radio-button value="40-80">Entre 40m2 e 80m2</mat-radio-button>
+        <mat-radio-button value="80-135">Entre 80m2 e 135m2</mat-radio-button>
+        <mat-radio-button value="+135">Acima de 135 m2</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+  </div>
+  <div class="agendar-limpeza-content-right">
+    <div style="margin-top: 2rem">Quantas casas de banho possui o imóvel?</div>
+    <div>
+      <mat-radio-group aria-label="Select an option">
+        <mat-radio-button value="1">1 </mat-radio-button>
+        <mat-radio-button value="2">2</mat-radio-button>
+        <mat-radio-button value="3">3</mat-radio-button>
+        <mat-radio-button value="4">4+</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div style="margin-top: 2rem">
+      Deseja adicionar serviços de engomadoria?
+    </div>
+    <div>
+      <mat-radio-group aria-label="Select an option">
+        <mat-radio-button value="undefined">Não</mat-radio-button>
+        <mat-radio-button value="1">1 hora</mat-radio-button>
+        <mat-radio-button value="2">2 horas</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div style="margin-top: 2rem">Há animais de estimação no imóvel?</div>
+    <div>
+      <mat-radio-group aria-label="Select an option">
+        <mat-radio-button [value]="false">Não</mat-radio-button>
+        <mat-radio-button [value]="true">Sim</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <!--<div style="margin-top: 2rem">Quantidade de horas recomendadas</div>
+    <div class="agendar-limpeza-counter">
+      <app-icon-minus (click)="minus()"></app-icon-minus>
+      <span>{{ hours }}</span>
+      <app-icon-plus (click)="plus()"></app-icon-plus>
+    </div>
+    <button (click)="getFreelancers()">
+      Procurar freelancer
+    </button>-->
+  </div>
+</div>

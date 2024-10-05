@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="tipoConta">
+    <h1>Escolha o tipo de conta a criar</h1>
+    <div class="cards">
+      <mat-card (click)="navegarParaCriarConta('freelancer')">
+        <img
+          mat-card-image
+          src="../../assets/maid_4344486.png"
+          alt="Freelancer"
+        />
+        <h2 mat-card-title>FREELANCER</h2>
+        <mat-icon>arrow_forward</mat-icon>
+      </mat-card>
+
+      <mat-card (click)="navegarParaCriarConta('client')">
+        <img
+          mat-card-image
+          src="../../assets/client_6009864.png"
+          alt="Client"
+        />
+        <h2 mat-card-title>CLIENTE</h2>
+        <mat-icon>arrow_forward</mat-icon>
+      </mat-card>
+    </div>
+  </div>
+  <div class="login-section">
+    <h1>Iniciar Sessão</h1>
+    <h3>Se já possui uma conta, inicie sessão aqui.</h3>
+    <button mat-button routerLink="/login">Ir para Login</button>
+  </div>
+</div>

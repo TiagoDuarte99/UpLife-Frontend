@@ -1,0 +1,27 @@
+.button-container {
+  position: fixed;
+  top: 60px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: nowrap;
+  background-color: #fff; 
+  width: 100%; 
+  padding: 10px;
+  z-index: 1;
+}
+
+button {
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #0B0D4D; 
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+}
+
+.component-container{
+  margin-top: 130px;
+  padding: 0px 90px ;
+}
